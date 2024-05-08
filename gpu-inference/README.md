@@ -2,7 +2,7 @@
 
 We have conducted two experiments on huggingface implementation of Starcoder2 which supports different modes including enabling FlashAttention2, Quantization using different wrappers. The jupyter notebook Starcoder2_LLM contains all the code used to benckmark the Starcoder2 and a detailed explanation of every benchmark experiment is mentioned below:
 
-\\
+
 
 ## FLASH ATTENTION 2
 To measure the speedup that we could achieve with flash attention, we measure the time taken for StarCoder2 (without and with Attention) in multiple settings. We use the time taken for one minibatch to measure the speedup. This is calculated in the warmup and benchmark function where we run 2 minibatches of warmup and then measure the time taken to infer 4 minibatches. This process is repeated 4 times to find the time taken for minibatch which is used to measure the speedup.
