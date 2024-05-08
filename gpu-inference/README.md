@@ -75,7 +75,7 @@ The authors of Starcoder2 model have implemented 2 versions code CodeLLM in Hugg
 
 ### Quantization using Bits And Bytes
 
-We have measured the time taken for one minibatch, perplexity score and pass@1 values for bf16, fp8 and nf4 implementations. We have also measured the time taken for nf4 quantized Starcoder2 model with compute size of torch.float32 and torch.float16.
+We have measured the time taken for one minibatch, perplexity score and pass@1 values for bf16, fp8 and nf4 implementations. We have also measured the time taken for nf4 quantized Starcoder2 model with compute size of torch.float32 and torch.float16. Run the HumanEval section in the jupyter notebook to evaluate the above-defined models.
 
 <br>
 
@@ -93,3 +93,4 @@ We have measured the time taken for one minibatch, perplexity score and pass@1 v
 | Metric \ Quantization | **bf16**  | **fp8** | **nf4 with torch.float16** |
 | **Perplexity**         | 1.107   |  1.704   |  1.714   |
 | **pass@1**         | 0.359     |  0.335     |  0.329     |
+
