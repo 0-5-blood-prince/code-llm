@@ -4,11 +4,11 @@ We used multiple optimizations to create an efficient Code LLM capable of runnin
 They are the following
 * Vanilla - running torch-cpu
 * pytorch-cpu jit traced model
-* Using a GGML model format for efficient inference
+* Using a GGML model format for efficient inference, further we use quantization to reduce the memory footprint and inference speed.
 
 
 Model: Starcoder2 7B Code generation model
-Frameoworks and libraries used: pytorch, huggingface and llama.cpp
+Frameoworks and libraries used: pytorch, hugging face and llama.cpp
 
 
 Optmization metric: Inference Speed
@@ -16,7 +16,7 @@ Evaluation metric: HumanEval Benchmark
 
 Files
 * trainer_code_gen.py, This file contains code to measure inference speed of a given prompt, with two modes Vanilla and JIT compiled model.
-* starcoder2_download.py, This file contains the code to download huggingface pretrained model weights in a particular directory
+* starcoder2_download.py, This file contains the code to download huggingface pre-trained model weights in a particular directory
 
 
 ## pytorch-cpu only
@@ -37,10 +37,6 @@ A jit trace of a sample input to the model is used to create traced model. And t
 `````` 
 python trainer_code_gen.py --prompt {PROMPT} --cpu_only -jit 
 ``````
-
-
-
-
 
 
 ## GGML format
@@ -110,6 +106,13 @@ from typing import List\n\n\ndef has_close_elements(numbers: List[float], thresh
 </code>
 
 with max_tokens=200
+
+
+* Vanilla torch-CPU: 257.16 sec
+* torch-jit (trace): 240.62 sec
+* GGML(f16) with llama.cpp: 54 sec
+* GGML(q4_k_m) with llama.cpp: 48.9 sec
+* GGML(q4_k_s) with llama.cpp: 26.22 sec
 
 
 
