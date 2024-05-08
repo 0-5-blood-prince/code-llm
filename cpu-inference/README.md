@@ -43,7 +43,7 @@ python trainer_code_gen.py --prompt {PROMPT} --cpu_only -jit
 
 ### llama.cpp
 
-llama.cpp is 
+llama.cpp enables LLM inference with minimal setup and state-of-the-art performance with GGML models on a wide variety of hardware - locally and in the cloud. 
 
 ### Converting Starcoder2 to GGML format
 
