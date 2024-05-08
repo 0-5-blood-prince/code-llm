@@ -18,11 +18,13 @@ Evaluation Benchmark: HumanEval
 
 ## GPU Inference
 In the first half of the experiments, we benchmark inference speeds on Starcoder 2 with and without Flash Attention. Then we benchmark the quantized version of Starcoder2 (quantization is achieved using advanced techniques like BitsandBytes and GPTQ). Later, we evaluate the performance of these quantized models using perplexity and pass@1 on Hu as metrics. More information about the methodology and results is present in gpu-inference README file.
+
 ![image](https://github.com/0-5-blood-prince/code-llm/assets/42780672/24c6730d-5504-4c84-af9f-1c14cfa154b0)
 
 
 ## CPU Inference
 In these experiments, we first performed inference using torch-cpu environment and JIT optimization. Later, we used GGML model format to perform inference using llama.cpp. This resulted in a huge performance improvement. We further improve the inference speed by using quantization. See cpu-inference README for further details
+
 ![image](https://github.com/0-5-blood-prince/code-llm/assets/42780672/b18a652f-66d6-4ded-a7a9-d627b9c24f4a)
 
 
