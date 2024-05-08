@@ -25,6 +25,8 @@ In the first half of the experiments, we benchmark inference speeds on Starcoder
 ## CPU Inference
 In these experiments, we first performed inference using torch-cpu environment and JIT optimization. Later, we used GGML model format to perform inference using llama.cpp. This resulted in a huge performance improvement. We further improve the inference speed by using quantization. See cpu-inference README for further details
 
+GGML models: https://huggingface.co/Mooizz/starcoder2-gguf
+
 ![image](https://github.com/0-5-blood-prince/code-llm/assets/42780672/b18a652f-66d6-4ded-a7a9-d627b9c24f4a)
 
 
