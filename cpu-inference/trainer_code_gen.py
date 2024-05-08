@@ -86,7 +86,9 @@ def sparse_model_config(model_config):
     print(num_layer, num_head, num_embedding_size_per_head)
     return num_layer, num_head, num_embedding_size_per_head
 
-
+# #
+# # Functions to build sample past_key_values
+# #
 def generate_past_key_values(model, batch_size, seq_len):
     num_block_layers, num_attention_heads, num_embedding_size_per_head = sparse_model_config(model.config)
     num_attention_heads = 4
@@ -103,7 +105,9 @@ def generate_past_key_values(model, batch_size, seq_len):
         )
     return past_key_values
 
-
+# #
+# # Functions to build sample jit inputs
+# #
 def prepare_jit_inputs(inputs, model, tokenizer):
     batch_size = len(inputs)
     dummy_input = tokenizer.batch_encode_plus(inputs, return_tensors="pt")
