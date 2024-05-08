@@ -1,31 +1,39 @@
 from human_eval.data import write_jsonl, read_problems
 from llama_cpp import Llama
+import time
 
+
+
+### Load the llama_cpp module
 llm = Llama(
-      model_path="/home/mooizz/code-llm/cpu-inference/starcoder2-7b-f16.gguf",
-      # n_gpu_layers=-1, # Uncomment to use GPU acceleration
-      # seed=1337, # Uncomment to set a specific seed
-      # n_ctx=2048, # Uncomment to increase the context window
-)
-# output = llm(
-#        "from typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in given list of numbers, are any two numbers closer to each other than\n    given threshold.\n    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)\n    False\n    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n    True\n    \"\"\"\n",
-#       stop=["\nclass", "\ndef", "\n#", "\n@", "print", "if", "```", "<file_sep>"], # Stop generating just before the model would generate a new question
-# ) # Generate a completion, can also call create_completion
-# print(output)
+      model_path="/home/mooizz/starcoder2-gguf/starcoder2-7b-f16.gguf",
+      n_ctx = 512, n_batch = 2048, n_keep = 0, n_threads = 8, echo=False)
 
 
+### code completion task
 def generate_one_completion(prompt):
-    output = llm(prompt, stop=["\nclass", "\ndef", "\n#", "\n@", "\nprint", "\nif", "\n```", "<file_sep>"])
+    output = llm(prompt,
+                # stop=["\n\n\n"]
+                 stop=["\nclass", "\ndef", "\n#", "\n@", "\nprint", "\nif", "\n```", "<file_sep>"],
+                #  repeat_last_n = 64, 
+                max_tokens=300,
+                echo=False,
+                 repeat_penalty = 1.000, frequency_penalty = 0.000, presence_penalty = 0.000,
+
+        top_k = 40, tfs_z = 1.000, top_p = 0.950, min_p = 0.050, typical_p = 1.000, temperature = 0.800)
     return output["choices"][0]["text"]
-
-
+      
 problems = read_problems()
 
+num_samples_per_task = 1
 
-num_samples_per_task = 200
-samples = [
-    dict(task_id=task_id, completion=generate_one_completion(problems[task_id]["prompt"]))
-    for task_id in problems
-    for _ in range(num_samples_per_task)
-]
+start = time.time()
+for _ in range(num_samples_per_task):
+    for task_id in problems:
+        completion = generate_one_completion(problems[task_id]["prompt"])
+        print(completion)
+        dict(task_id=task_id, completion=completion)
+
+
+print(f'Total Time Taken {time.time()-start}')
 write_jsonl("samples.jsonl", samples)
